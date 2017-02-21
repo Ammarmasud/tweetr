@@ -30,3 +30,7 @@ section.new-tweet span.counter {
   font-size: 0.8em;
   font-style: italic;
 }
+
+section.new-tweet span.counter.red-text {
+  color: red;
+}
