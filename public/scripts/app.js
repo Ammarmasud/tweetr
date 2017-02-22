@@ -4,60 +4,23 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 $(function() {
-  let data = [
-    {
-      "user": {
-        "name": "Newton",
-        "avatars": {
-          "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-          "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-          "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-        },
-        "handle": "@SirIsaac"
-      },
-      "content": {
-        "text": "If I have seen further it is by standing on the shoulders of giants"
-      },
-      "created_at": 1461116232227
-    },
-    {
-      "user": {
-        "name": "Descartes",
-        "avatars": {
-          "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-          "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-          "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-        },
-        "handle": "@rd" },
-      "content": {
-        "text": "Je pense , donc je suis"
-      },
-      "created_at": 1461113959088
-    },
-    {
-      "user": {
-        "name": "Johann von Goethe",
-        "avatars": {
-          "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-          "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-          "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-        },
-        "handle": "@johann49"
-      },
-      "content": {
-        "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-      },
-      "created_at": 1461113796368
-    }
-  ];
+  const loadTweets = function () {
+    $.ajax({
+      url: '/tweets',
+      method: 'GET',
+      success: function (dbTweets) {
+        renderTweets(dbTweets.reverse());
+      }
+    });
+  }();
 
-  escape = function (str) {
+  const escape = function (str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
-  }
+  };
 
-  calcDaysAgo = function (date_past) {
+  const calcDaysAgo = function (date_past) {
     // get total seconds between the times
     let delta = Math.abs(Date.now() - date_past) / 1000;
     let timeMessage = ``;
@@ -77,11 +40,10 @@ $(function() {
     } else {
       timeMessage += `Just now!`
     }
-
     return timeMessage;
   };
 
-  createTweetElement = function (tweetData) {
+  const createTweetElement = function (tweetData) {
     const timeAgo = calcDaysAgo(tweetData.created_at);
     const tweet = `<article class="tweet">
                     <header>
@@ -89,7 +51,7 @@ $(function() {
                       <h3>${escape(tweetData.user.name)}</h3>
                       <h6>${escape(tweetData.user.handle)}</h6>
                     </header>
-                    <p>${escape(tweetData.text)}</p>
+                    <p>${escape(tweetData.content.text)}</p>
                     <footer>
                       <p>${timeAgo}</p>
                     </footer>
@@ -98,12 +60,36 @@ $(function() {
     return tweet;
   };
 
-  renderTweets = function (data) {
-    data.forEach(function(tweetData) {
-      const $tweet = createTweetElement(tweetData);
-      $('#tweets-container').append($tweet);
-    });
+  const renderTweets = function (data) {
+    const tweets = data.map(createTweetElement);
+    $('#tweets-container').append(tweets);
   };
 
-  renderTweets(data);
+  const renderNewTweet = function (newTweetData) {
+    const tweet = createTweetElement(newTweetData);
+    $('#tweets-container').prepend(tweet);
+  };
+
+  $('#new-tweet-form').on('submit', function(event) {
+    event.preventDefault();
+    const new_tweet = $(this).serialize();
+
+    $.ajax({
+      url: '/tweets/',
+      method: 'POST',
+      data: new_tweet,
+      success: function () {
+        console.log($('#new-tweet-form textarea'));
+        $('#new-tweet-form textarea').val('');
+        $.ajax({
+          url: '/tweets',
+          method: 'GET',
+          success: function (dbTweets) {
+            console.log(typeof dbTweets);
+            renderNewTweet(dbTweets[dbTweets.length - 1]);
+          }
+        });
+      }
+    });
+  });
 });
