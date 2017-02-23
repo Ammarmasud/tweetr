@@ -3,7 +3,15 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
+
+
 $(function() {
+  $('.btn-compose').on('click', function() {
+    $('span.counter').toggle();
+    $('section.new-tweet').slideToggle();
+    $('#new-tweet-form textarea').select()
+  });
+
   const loadTweets = function () {
     $.ajax({
       url: '/tweets',
@@ -15,7 +23,7 @@ $(function() {
   }();
 
   const escape = function (str) {
-    var div = document.createElement('div');
+    const div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   };
@@ -48,10 +56,10 @@ $(function() {
     const tweet = `<article class="tweet">
                     <header>
                       <img class="profile-pic" src="${tweetData.user.avatars.small}">
-                      <h3>${escape(tweetData.user.name)}</h3>
-                      <h6>${escape(tweetData.user.handle)}</h6>
+                      <h3>${tweetData.user.name}</h3>
+                      <h6>${tweetData.user.handle}</h6>
                     </header>
-                    <p>${escape(tweetData.content.text)}</p>
+                    <p>${tweetData.content.text}</p>
                     <footer>
                       <p>${timeAgo}</p>
                     </footer>
@@ -70,22 +78,36 @@ $(function() {
     $('#tweets-container').prepend(tweet);
   };
 
+  const flashMessage = function (message) {
+    $('.error-new-tweet').text(message).show();
+    setTimeout(function() {
+        $('.error-new-tweet').hide(500);
+    }, 2000);
+  };
+
   $('#new-tweet-form').on('submit', function(event) {
     event.preventDefault();
+    $('#new-tweet-form textarea').val(escape($('#new-tweet-form textarea').val()));
     const new_tweet = $(this).serialize();
+
+    if ($('#new-tweet-form textarea').val() === '') {
+      flashMessage('Empty tweet!');
+      return;
+    } else if ($('#new-tweet-form span.counter').text() < 0) {
+      flashMessage('Tweet too long!');
+      return;
+    }
 
     $.ajax({
       url: '/tweets/',
       method: 'POST',
       data: new_tweet,
       success: function () {
-        console.log($('#new-tweet-form textarea'));
         $('#new-tweet-form textarea').val('');
         $.ajax({
           url: '/tweets',
           method: 'GET',
           success: function (dbTweets) {
-            console.log(typeof dbTweets);
             renderNewTweet(dbTweets[dbTweets.length - 1]);
           }
         });

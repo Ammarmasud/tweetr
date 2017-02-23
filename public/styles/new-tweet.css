@@ -34,3 +34,8 @@ section.new-tweet span.counter {
 section.new-tweet span.counter.red-text {
   color: red;
 }
+
+section.new-tweet span.error-new-tweet {
+  color: red;
+  font-size: 0.8em;
+}
