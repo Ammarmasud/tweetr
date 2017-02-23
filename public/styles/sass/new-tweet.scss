@@ -1,0 +1,44 @@
+
+$font-stack: 0.8em;
+
+section.new-tweet {
+  box-sizing: border-box;
+  background-color: #eee;
+  margin-right: 2em;
+  margin-left: 2em;
+  border-radius: 5px;
+  border: 1px solid #d0d0d0;
+  height: 100%;
+  padding: 10px;
+  position: relative;
+
+
+  > h2 {
+    margin: 0px;
+    border-bottom: 1px solid black;
+    margin-bottom: 15px;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 5px;
+  }
+
+  span.counter {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    color: #808080;
+    font-size: $font-stack;
+    font-style: italic;
+  }
+
+  span.counter.red-text {
+    color: red;
+  }
+
+  span.error-new-tweet {
+    color: red;
+    font-size: $font-stack;
+  }
+}
