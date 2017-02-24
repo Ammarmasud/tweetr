@@ -11,7 +11,7 @@ const sassMiddleware  = require('node-sass-middleware');
 app.use(sassMiddleware({
   src: 'public/styles/sass',
   dest: 'public/styles',
-  debug: flase,
+  debug: true,
   outputStyle: 'compressed',
   prefix: '/styles'
 }));

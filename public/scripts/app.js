@@ -12,6 +12,8 @@ $(function() {
     $('#new-tweet-form textarea').select()
   });
 
+
+
   const loadTweets = function () {
     $.ajax({
       url: '/tweets',
@@ -61,7 +63,9 @@ $(function() {
                     </header>
                     <p>${tweetData.content.text}</p>
                     <footer>
-                      <p>${timeAgo}</p>
+                      <p>${timeAgo}
+                      <i class="fa fa-heart"> 0</i>
+                      </p>
                     </footer>
                   </article>`;
 
@@ -85,12 +89,13 @@ $(function() {
     }, 2000);
   };
 
-  $('#new-tweet-form').on('submit', function(event) {
+  const submitTweet = function (event) {
     event.preventDefault();
-    $('#new-tweet-form textarea').val(escape($('#new-tweet-form textarea').val()));
-    const new_tweet = $(this).serialize();
+    const tweetTextArea = $('#new-tweet-form textarea');
+    tweetTextArea.val(escape(tweetTextArea.val()));
+    const new_tweet = tweetTextArea.serialize();
 
-    if ($('#new-tweet-form textarea').val() === '') {
+    if (tweetTextArea.val() === '') {
       flashMessage('Empty tweet!');
       return;
     } else if ($('#new-tweet-form span.counter').text() < 0) {
@@ -103,7 +108,7 @@ $(function() {
       method: 'POST',
       data: new_tweet,
       success: function () {
-        $('#new-tweet-form textarea').val('');
+        tweetTextArea.val('');
         $.ajax({
           url: '/tweets',
           method: 'GET',
@@ -113,5 +118,12 @@ $(function() {
         });
       }
     });
+  }
+
+  $('#new-tweet-form').on('submit', submitTweet);
+  $('#new-tweet-form textarea').keypress(function (event) {
+      if(event.which == 13) {
+        submitTweet(event);
+      }
   });
 });

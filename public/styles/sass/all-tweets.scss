@@ -55,12 +55,28 @@ article.tweet {
     border-top: 1px solid rgb(238,238,238);
     color: rgb(58,91,100);
     padding-left: 10px;
+    padding-right: 10px;
     line-height: 35px;
     font-size: 0.75em;
+  }
+
+  .fa.fa-heart {
+    color: rgb(1,160,133);
+    line-height: 35px;
+    float: right;
+    opacity: 0;
   }
 
 }
 
 article.tweet:hover {
   opacity: 1;
+
+  .fa.fa-heart {
+    opacity: 0.75;
+  }
+
+  .fa.fa-heart:hover {
+    text-shadow: 0px 0px 1px #000;
+  }
 }
