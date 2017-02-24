@@ -1,7 +1,7 @@
 "use strict";
 
 // Basic express setup:
-
+require('dotenv').config();
 const PORT            = 8080;
 const express         = require("express");
 const bodyParser      = require("body-parser");
@@ -11,7 +11,7 @@ const sassMiddleware  = require('node-sass-middleware');
 app.use(sassMiddleware({
   src: 'public/styles/sass',
   dest: 'public/styles',
-  debug: true,
+  debug: false,
   outputStyle: 'compressed',
   prefix: '/styles'
 }));
@@ -21,7 +21,7 @@ app.use(express.static("public"));
 // // The in-memory database of tweets. It's a basic object with an array in it.
 // const db = require("./lib/in-memory-db");
 const MongoClient = require("mongodb").MongoClient;
-const MONGODB_URI = "mongodb://localhost:27017/tweeter";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 // The `data-helpers` module provides an interface to the database of tweets.
 // This simple interface layer has a big benefit: we could switch out the
