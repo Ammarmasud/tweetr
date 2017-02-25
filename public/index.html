@@ -1,56 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Meta Information -->
-    <title>Tweeter - Home Page</title>
+<head>
+  <!-- Meta Information -->
+  <title>Tweeter - Home Page</title>
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Adding roboto condensed fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,700,700i" rel="stylesheet">
+  <!-- Adding roboto condensed fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,700,700i" rel="stylesheet">
 
-    <!-- App CSS -->
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/all-tweets.css" type="text/css" />
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/all-tweets.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/login-register-modal.css" type="text/css" />
 
-    <!-- External JS -->
-    <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
+  <!-- External JS -->
+  <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
 
-    <!-- App JS -->
-    <script type="text/javascript" src="/scripts/app.js"></script>
+  <!-- App JS -->
+  <script type="text/javascript" src="/scripts/app.js"></script>
 
-    <!-- Char Counter JS -->
-    <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
-  </head>
+  <!-- Char Counter JS -->
+  <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
 
-  <body>
+  <!-- login and registeration -->
+  <script type="text/javascript" src="/scripts/register-login-modal.js"></script>
+</head>
 
-    <!-- Top nav bar (fixed) -->
-    <nav id="nav-bar">
-      <img class="logo" src="/images/bird.png">
-      <span class="header">Tweeter</span>
-      <button class='btn-compose'>Compose</button>
-    </nav>
+<body>
 
-    <!-- Page-specific (main) content here -->
-    <main class="container">
-      <section class="new-tweet">
-        <h2>Compose Tweet</h2>
-        <form id="new-tweet-form" action='/tweets' method='POST'>
-          <textarea name="text" placeholder="What are you humming about?"></textarea>
-          <input type="submit" value="Tweet">
-          <span class='error-new-tweet'></span>
-          <span class="counter">140</span>
+  <!-- Top nav bar (fixed) -->
+  <nav id="nav-bar">
+    <img class="logo" src="/images/bird.png">
+    <span class="header">Tweeter</span>
+    <button class='btn-compose'>Compose</button>
+    <button class='btn-register-login'>Register/Login</button>
+  </nav>
+
+  <!-- registration and login modal -->
+  <div id="user-modal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-nav-bar">
+        <button class="modal-tab tab-login tab-selected">Login</button>
+        <button class="modal-tab tab-register tab-unselected">Register</button>
+        <span class="close">&times;</span>
+      </div>
+
+      <div class="modal-form login-form">
+        <form  id="login-form" action="/users" method="POST">
+          <p><input id="email" class="form-control" type="email" name="email" placeholder="Enter Email"></p>
+          <p><input id="password" class="form-control" type="password" name="password" placeholder="Enter Password"></p>
+          <button type="submit" class="btn btn-login">Login</button>
         </form>
-      </section>
+      </div>
 
-      <section id="tweets-container">
-      </section>
-    </main>
+      <div class="modal-form registration-form">
+        <form id="registration-form" action="/users" method="POST">
+          <p><input id="reg-name" type="text" name="name" placeholder="Full Name"></p>
+          <p><input id="reg-handle" type="text" name="handle" placeholder="Tweeter Handle"></p>
+          <p><input id="reg-email" type="email" name="email" placeholder="Email"></p>
+          <p><input id="reg-password" type="password" name="password" placeholder="Password"></p>
+          <!-- <button type="submit" class="btn btn-register">Register</button> -->
+          <input type="submit" value="register">
+        </form>
+      </div>
+    </div>
+  </div>
 
-  </body>
+  <!-- Page-specific (main) content here -->
+  <main class="container">
+    <section class="new-tweet">
+      <h2>Compose Tweet</h2>
+      <form id="new-tweet-form" action='/tweets' method='POST'>
+        <textarea name="text" placeholder="What are you humming about?"></textarea>
+        <input type="submit" value="Tweet">
+        <span class='error-new-tweet'></span>
+        <span class="counter">140</span>
+      </form>
+    </section>
+
+    <section id="tweets-container">
+    </section>
+  </main>
+
+</body>
 </html>

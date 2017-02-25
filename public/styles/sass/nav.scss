@@ -25,6 +25,7 @@ $navHeight: 80px;
   }
 
   .btn-compose {
+    display: none;
     background-color: rgb(231,253,255);
     color: rgb(1,160,133);
 
@@ -39,14 +40,40 @@ $navHeight: 80px;
     text-align: center;
     line-height: $navHeight - 20px;
     width: 120px;
+    /*width: 14%;*/
+
+    &:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    &:focus {
+      outline: 0;
+    }
   }
 
-  .btn-compose:hover {
-    background-color: #fff;
-    color: #000;
+  .btn-register-login {
+    @extend .btn-compose;
+    display: block;
+    font-size: 1em;
   }
 
-  .btn-compose:focus {
-    outline: 0;
-  }
 }
+
+/*@media (max-device-width: 11cm), (max-width: 500px) {
+  #nav-bar {
+    .btn-compose {
+      width: $navHeight - 20px;
+      change to icon later
+
+      &:hover {
+        background-color: #fff;
+        color: #000;
+      }
+
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+}*/
