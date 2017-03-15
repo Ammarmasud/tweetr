@@ -12,7 +12,7 @@ Implemented the HTML, CSS and client-side JS to bring this project to life.
 
 The end result looks and functions like this:
 
-![End Result](https://d1zjcuqflbd5k.cloudfront.net/files/acc_101433/1eyEY?response-content-disposition=inline;%20filename=Screen%20Capture%20on%202016-07-03%20at%2015-31-27.gif&Expires=1489594588&Signature=bNAr-t-Zs522AWyr~SBQZZLFsfW6Ie41iUsxOrCKaEkzKZQ1YFn6MR59NgO-D87LveI3mANboDxkbWDKOb7rsCpHyHQvBFsPhxB1kaR8kfw4jdL4I8WG7emuRFY1ySKdxbhlR1FjG0HDLLQ2XL0X87h6YeKnOrTcX7Miz-vXjcg_&Key-Pair-Id=APKAJTEIOJM3LSMN33SA)
+![](https://d.pr/i/1eyEY/4MEH16BY+)
 
 ## Dependencies & Troubleshooting
 
