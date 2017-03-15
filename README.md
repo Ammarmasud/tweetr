@@ -12,7 +12,7 @@ Implemented the HTML, CSS and client-side JS to bring this project to life.
 
 The end resultlooks and functions like this:
 
-!["End Result"](https://d.pr/i/1eyEY/4MEH16BY)
+![End Result](https://d.pr/i/1eyEY/4MEH16BY)
 
 ## Dependencies & Troubleshooting
 
