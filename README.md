@@ -12,7 +12,7 @@ Implemented the HTML, CSS and client-side JS to bring this project to life.
 
 The end result looks and functions like this:
 
-![](https://media.giphy.com/media/xUA7aZaWmET8v93rXO/source.gif)
+![](http://i.giphy.com/xUA7aZaWmET8v93rXO.gif)
 
 ## Dependencies & Troubleshooting
 
